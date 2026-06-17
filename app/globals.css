@@ -161,7 +161,7 @@ body{
 /* ============ BRAND / HEADER ============ */
 .brand{
   position:absolute;top:3vh;left:50%;transform:translateX(-50%);
-  z-index:6;display:flex;flex-direction:column;align-items:center;gap:8px;
+  z-index:8;display:flex;flex-direction:column;align-items:center;gap:8px;
   background:rgba(255,255,255,.97);
   padding:13px 28px 11px;border-radius:18px;
   box-shadow:0 14px 36px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.7), 0 0 0 3px rgba(255,210,74,.45);
@@ -174,7 +174,7 @@ body{
 }
 
 .shift-tag{
-  position:absolute;top:4.2vh;right:3vw;z-index:6;
+  position:absolute;top:4.2vh;right:3vw;z-index:8;
   font-family:'Fredoka';font-weight:600;font-size:14px;
   color:var(--gold);letter-spacing:2px;
   display:flex;align-items:center;gap:8px;
@@ -203,7 +203,7 @@ body{
 
 /* speech hint near mascot */
 .mascot-hint{
-  position:absolute;left:min(22vw,300px);bottom:30vh;z-index:6;
+  position:absolute;left:min(22vw,300px);bottom:30vh;z-index:5;
   background:#fff;color:#241a3a;
   font-family:'Fredoka';font-weight:600;font-size:18px;
   padding:12px 18px;border-radius:18px 18px 18px 4px;
@@ -213,7 +213,7 @@ body{
 
 /* ============ QR PANEL ============ */
 .qr-panel{
-  position:absolute;right:2.4vw;bottom:3vh;z-index:7;
+  position:absolute;right:2.4vw;bottom:3vh;z-index:9;
   background:rgba(255,255,255,.96);
   border-radius:22px;padding:18px 18px 14px;
   text-align:center;width:200px;
@@ -235,7 +235,7 @@ body{
 @keyframes scan{0%{transform:translateY(-40%)}100%{transform:translateY(360%)}}
 
 /* ============ CHAT BUBBLES (the signature) ============ */
-.bubble-lane{position:absolute;inset:0;z-index:5;pointer-events:none}
+.bubble-lane{position:absolute;inset:0;z-index:6;pointer-events:none}
 .bubble{
   position:absolute;bottom:-80px;
   max-width:300px;min-width:170px;
@@ -430,3 +430,39 @@ body{
 .admin-empty{text-align:center;color:var(--muted);padding:60px 20px}
 .admin-empty .big{font-size:40px;margin-bottom:10px}
 .admin-hint{color:var(--muted);font-size:12px;text-align:center;margin-top:18px;opacity:.7}
+
+/* ============ PINNED BUBBLES (max 3, stay floating) ============ */
+.pin-lane{position:absolute;inset:0;z-index:7;pointer-events:none}
+.pin-bubble{position:absolute;max-width:300px;min-width:180px}
+.pin-bubble.slot-0{left:7%;top:30vh}
+.pin-bubble.slot-1{left:39%;top:23vh}
+.pin-bubble.slot-2{left:68%;top:33vh}
+.pin-float{animation:pinFloat 5.5s ease-in-out infinite}
+@keyframes pinFloat{
+  0%,100%{transform:translateY(0) rotate(-1.2deg)}
+  50%{transform:translateY(-18px) rotate(1.2deg)}
+}
+.card.pinned{
+  border-color:rgba(255,210,74,.85);
+  box-shadow:0 14px 38px rgba(40,10,90,.55), 0 0 0 2px rgba(255,210,74,.55), 0 0 26px rgba(255,210,74,.3), inset 0 1px 0 rgba(255,255,255,.35);
+}
+.card.pinned::before{background:linear-gradient(90deg,var(--gold),#ffb300)}
+.pin-badge{
+  position:absolute;top:-12px;left:-10px;font-size:22px;
+  filter:drop-shadow(0 2px 3px rgba(0,0,0,.45));transform:rotate(-18deg);
+}
+@media (prefers-reduced-motion:reduce){ .pin-float{animation:none !important} }
+
+/* admin: pin actions */
+.admin-bar .pin-count{background:rgba(255,210,74,.16);color:var(--gold)}
+.msg-row.is-pinned{border-color:rgba(255,210,74,.5);background:rgba(255,210,74,.07)}
+.msg-row .pinned-tag{font-family:'Fredoka';font-weight:600;font-size:11px;color:#3a2a00;background:var(--gold);padding:2px 9px;border-radius:999px}
+.row-actions{flex:0 0 auto;display:flex;flex-direction:column;gap:8px}
+.act{border-radius:11px;padding:9px 13px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Fredoka';border:1px solid transparent;transition:background .2s,transform .1s;white-space:nowrap}
+.act:active{transform:scale(.94)}
+.act:disabled{opacity:.4;cursor:not-allowed}
+.act.pin{background:rgba(255,210,74,.16);color:#ffe08a;border-color:rgba(255,210,74,.4)}
+.act.pin:hover:not(:disabled){background:rgba(255,210,74,.28)}
+.act.unpin{background:rgba(255,210,74,.9);color:#3a2a00;border-color:transparent}
+.act.del{background:rgba(255,59,48,.16);color:#ffb3ad;border-color:rgba(255,59,48,.4)}
+.act.del:hover{background:rgba(255,59,48,.28)}

@@ -5,6 +5,7 @@ import Backdrop from '@/components/Backdrop';
 
 export default function DisplayPage() {
   const [bubbles, setBubbles] = useState([]);
+  const [pins, setPins] = useState([]);
   const [chatUrl, setChatUrl] = useState('');
   const sinceRef = useRef(0);
   const delSinceRef = useRef(0);
@@ -28,7 +29,7 @@ export default function DisplayPage() {
 
   function spawn(msg) {
     const lane = 8 + Math.random() * 64; // left % (keep clear of QR/mascot edges-ish)
-    const rise = 16 + Math.random() * 6;
+    const rise = 21 + Math.random() * 8; // slower (~75% of previous speed)
     const swaydur = 4 + Math.random() * 4;
     const key = `${msg.id}-${Math.random().toString(36).slice(2, 7)}`;
     setBubbles((b) => [...b, { ...msg, lane, rise, swaydur, key }]);
@@ -67,6 +68,8 @@ export default function DisplayPage() {
           if (clearAll) setBubbles([]);
           else if (ids.size) setBubbles((b) => b.filter((x) => !ids.has(x.id)));
         }
+
+        if (data.pins) setPins(data.pins);
       } catch (_) {}
     }
     const id = setInterval(tick, 1500);
@@ -95,6 +98,24 @@ export default function DisplayPage() {
                   {b.table ? <span className="tbl">Table {b.table}</span> : null}
                 </div>
                 <div className="msg">{b.text}</div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* pinned bubbles — stay floating until unpinned (max 3) */}
+      <div className="pin-lane">
+        {pins.slice(0, 3).map((p, i) => (
+          <div key={p.id} className={`pin-bubble slot-${i}`}>
+            <div className="pin-float" style={{ animationDelay: `${i * 0.8}s` }}>
+              <div className="card pinned">
+                <div className="pin-badge">📌</div>
+                <div className="meta">
+                  <span className="nm">{p.name}</span>
+                  {p.table ? <span className="tbl">Table {p.table}</span> : null}
+                </div>
+                <div className="msg">{p.text}</div>
               </div>
             </div>
           </div>

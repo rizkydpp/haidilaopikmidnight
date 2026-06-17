@@ -1,4 +1,4 @@
-import { addMessage, getMessages, getDeletions } from '@/lib/store';
+import { addMessage, getMessages, getDeletions, getPins } from '@/lib/store';
 
 export const dynamic = 'force-dynamic';
 
@@ -16,7 +16,9 @@ export async function GET(req) {
   const tombs = await getDeletions();
   const deleted = tombs.filter((t) => t.at > delsince);
 
-  return Response.json({ messages: fresh, deleted, now: Date.now() });
+  const pins = await getPins();
+
+  return Response.json({ messages: fresh, deleted, pins, now: Date.now() });
 }
 
 // Phone sends: POST /api/messages  { name, table, message }
