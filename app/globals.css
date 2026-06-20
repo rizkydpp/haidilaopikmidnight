@@ -238,7 +238,7 @@ body{
 .bubble-lane{position:absolute;inset:0;z-index:6;pointer-events:none}
 .bubble{
   position:absolute;bottom:-80px;
-  max-width:300px;min-width:170px;
+  max-width:480px;min-width:250px;
   animation:rise var(--rise,18s) linear forwards;
   will-change:transform,opacity;
 }
@@ -251,28 +251,28 @@ body{
 .bubble .sway{animation:sway var(--swaydur,6s) ease-in-out infinite alternate}
 @keyframes sway{0%{transform:translateX(-12px)}100%{transform:translateX(12px)}}
 
-.bubble .card{
+.card{
   background:rgba(255,255,255,.14);
   backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   border:1px solid rgba(255,255,255,.28);
-  border-radius:20px;
-  padding:13px 16px 14px;
+  border-radius:22px;
+  padding:18px 22px 20px;
   box-shadow:0 12px 34px rgba(40,10,90,.5), inset 0 1px 0 rgba(255,255,255,.35);
   position:relative;
 }
-.bubble .card::before{
-  content:"";position:absolute;left:16px;right:16px;top:0;height:3px;border-radius:0 0 6px 6px;
+.card::before{
+  content:"";position:absolute;left:20px;right:20px;top:0;height:4px;border-radius:0 0 6px 6px;
   background:linear-gradient(90deg,var(--gold),var(--red));
 }
-.bubble .meta{display:flex;align-items:center;gap:8px;margin-bottom:6px}
-.bubble .nm{font-family:'Fredoka';font-weight:600;font-size:17px;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.4)}
-.bubble .tbl{
-  font-family:'Fredoka';font-weight:600;font-size:12px;color:#fff;
+.meta{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.nm{font-family:'Fredoka';font-weight:600;font-size:25px;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.4)}
+.tbl{
+  font-family:'Fredoka';font-weight:600;font-size:18px;color:#fff;
   background:linear-gradient(135deg,var(--red),var(--red-deep));
-  padding:3px 9px;border-radius:999px;white-space:nowrap;
+  padding:4px 14px;border-radius:999px;white-space:nowrap;
   box-shadow:0 3px 8px rgba(255,59,48,.4);
 }
-.bubble .msg{font-size:15px;line-height:1.4;color:#fdfbff;text-shadow:0 1px 3px rgba(0,0,0,.4);word-break:break-word}
+.msg{font-size:22px;line-height:1.4;color:#fdfbff;text-shadow:0 1px 3px rgba(0,0,0,.4);word-break:break-word}
 
 /* reduced motion */
 @media (prefers-reduced-motion:reduce){
@@ -433,23 +433,32 @@ body{
 
 /* ============ PINNED BUBBLES (max 3, stay floating) ============ */
 .pin-lane{position:absolute;inset:0;z-index:7;pointer-events:none}
-.pin-bubble{position:absolute;max-width:300px;min-width:180px}
-.pin-bubble.slot-0{left:7%;top:30vh}
-.pin-bubble.slot-1{left:39%;top:23vh}
-.pin-bubble.slot-2{left:68%;top:33vh}
+.pin-bubble{position:absolute;max-width:480px;min-width:260px}
+.pin-bubble.slot-0{left:4%;top:30vh}
+.pin-bubble.slot-1{left:36%;top:22vh}
+.pin-bubble.slot-2{left:62%;top:33vh}
 .pin-float{animation:pinFloat 5.5s ease-in-out infinite}
 @keyframes pinFloat{
   0%,100%{transform:translateY(0) rotate(-1.2deg)}
   50%{transform:translateY(-18px) rotate(1.2deg)}
 }
+/* striking black card with gold text */
 .card.pinned{
-  border-color:rgba(255,210,74,.85);
-  box-shadow:0 14px 38px rgba(40,10,90,.55), 0 0 0 2px rgba(255,210,74,.55), 0 0 26px rgba(255,210,74,.3), inset 0 1px 0 rgba(255,255,255,.35);
+  background:#0b0b0d;
+  backdrop-filter:none;-webkit-backdrop-filter:none;
+  border:2px solid var(--gold);
+  box-shadow:0 16px 42px rgba(0,0,0,.6), 0 0 0 2px rgba(255,210,74,.35), 0 0 34px rgba(255,210,74,.45);
 }
-.card.pinned::before{background:linear-gradient(90deg,var(--gold),#ffb300)}
+.card.pinned::before{background:linear-gradient(90deg,#ffd24a,#ffb300);height:5px}
+.card.pinned .nm{color:var(--gold);text-shadow:0 1px 6px rgba(0,0,0,.7)}
+.card.pinned .msg{color:#ffe6a3;text-shadow:0 1px 6px rgba(0,0,0,.7)}
+.card.pinned .tbl{
+  background:var(--gold);color:#241a00;
+  box-shadow:0 3px 10px rgba(255,210,74,.5);
+}
 .pin-badge{
-  position:absolute;top:-12px;left:-10px;font-size:22px;
-  filter:drop-shadow(0 2px 3px rgba(0,0,0,.45));transform:rotate(-18deg);
+  position:absolute;top:-14px;left:-12px;font-size:26px;
+  filter:drop-shadow(0 2px 3px rgba(0,0,0,.5));transform:rotate(-18deg);
 }
 @media (prefers-reduced-motion:reduce){ .pin-float{animation:none !important} }
 

@@ -29,7 +29,7 @@ export default function DisplayPage() {
 
   function spawn(msg) {
     const lane = 8 + Math.random() * 64; // left % (keep clear of QR/mascot edges-ish)
-    const rise = 21 + Math.random() * 8; // slower (~75% of previous speed)
+    const rise = 30 + Math.random() * 11; // slower again (~0.7x of previous speed)
     const swaydur = 4 + Math.random() * 4;
     const key = `${msg.id}-${Math.random().toString(36).slice(2, 7)}`;
     setBubbles((b) => [...b, { ...msg, lane, rise, swaydur, key }]);
