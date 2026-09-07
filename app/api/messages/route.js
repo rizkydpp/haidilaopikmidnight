@@ -45,6 +45,11 @@ export async function POST(req) {
     ts: Date.now(),
   };
 
-  await addMessage(msg);
+  try {
+    await addMessage(msg);
+  } catch (e) {
+    console.error('addMessage failed:', e);
+    return Response.json({ error: 'Storage error — check KV/Upstash setup' }, { status: 500 });
+  }
   return Response.json({ ok: true, msg });
 }

@@ -29,10 +29,12 @@ export default function ChatPage() {
       const r = await fetch('/api/messages', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, table, message }),
+        body: JSON.stringify({ name: name.trim(), table: table.trim(), message: message.trim() }),
       });
-      const data = await r.json();
-      if (!r.ok) throw new Error(data.error || 'Failed to send');
+      // read defensively — some errors return HTML, not JSON
+      let data = {};
+      try { data = await r.json(); } catch (_) {}
+      if (!r.ok) throw new Error(data.error || `Couldn't send (error ${r.status})`);
       try {
         localStorage.setItem('hdl_name', name);
         localStorage.setItem('hdl_table', table);
@@ -41,7 +43,7 @@ export default function ChatPage() {
       setPoof(true);
       setTimeout(() => setPoof(false), 1600);
     } catch (e) {
-      setError(e.message || 'Something went wrong, try again');
+      setError(e.message && e.message.length < 60 ? e.message : 'Hmm, that didn’t go through — check your connection and try again.');
     } finally {
       setSending(false);
     }
