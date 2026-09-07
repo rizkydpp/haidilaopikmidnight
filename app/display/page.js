@@ -29,13 +29,14 @@ export default function DisplayPage() {
 
   function spawn(msg) {
     const lane = 8 + Math.random() * 64; // left % (keep clear of QR/mascot edges-ish)
-    const rise = 30 + Math.random() * 11; // slower again (~0.7x of previous speed)
+    const travel = 26 + Math.random() * 8; // seconds to float up to the top
     const swaydur = 4 + Math.random() * 4;
     const key = `${msg.id}-${Math.random().toString(36).slice(2, 7)}`;
-    setBubbles((b) => [...b, { ...msg, lane, rise, swaydur, key }]);
+    setBubbles((b) => [...b, { ...msg, lane, travel, swaydur, key }]);
+    // lifetime = travel up + 5s hold at the top + ~1.1s fade
     setTimeout(() => {
       setBubbles((b) => b.filter((x) => x.key !== key));
-    }, rise * 1000 + 500);
+    }, (travel + 5 + 1.1 + 0.4) * 1000);
   }
 
   // poll for new messages
@@ -90,7 +91,7 @@ export default function DisplayPage() {
       <div className="bubble-lane">
         {bubbles.map((b) => (
           <div key={b.key} className="bubble"
-            style={{ left: `${b.lane}%`, '--rise': `${b.rise}s` }}>
+            style={{ left: `${b.lane}%`, '--travel': `${b.travel}s` }}>
             <div className="sway" style={{ '--swaydur': `${b.swaydur}s` }}>
               <div className="card">
                 <div className="meta">
@@ -131,7 +132,7 @@ export default function DisplayPage() {
       <div className="qr-panel">
         <div className="qr-box qr-scanline">
           {chatUrl && (
-            <QRCodeSVG value={chatUrl} size={150} level="M"
+            <QRCodeSVG value={chatUrl} size={76} level="M"
               fgColor="#1a0f55" bgColor="#ffffff" />
           )}
         </div>
