@@ -239,7 +239,7 @@ body{
 .bubble-lane{position:absolute;inset:0;z-index:20;pointer-events:none}
 .bubble{
   position:absolute;bottom:-80px;
-  max-width:480px;min-width:250px;
+  max-width:400px;min-width:210px;
   opacity:0;
   animation:
     travelUp var(--travel,30s) linear forwards,
@@ -258,26 +258,26 @@ body{
   background:rgba(255,255,255,.14);
   backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   border:1px solid rgba(255,255,255,.28);
-  border-radius:22px;
-  padding:18px 22px 20px;
+  border-radius:20px;
+  padding:14px 18px 16px;
   box-shadow:0 12px 34px rgba(40,10,90,.5), inset 0 1px 0 rgba(255,255,255,.35);
   position:relative;
   animation:popIn .5s cubic-bezier(.2,1.4,.4,1) both;
 }
 @keyframes popIn{ from{transform:scale(.6)} to{transform:scale(1)} }
 .card::before{
-  content:"";position:absolute;left:20px;right:20px;top:0;height:4px;border-radius:0 0 6px 6px;
+  content:"";position:absolute;left:16px;right:16px;top:0;height:3px;border-radius:0 0 6px 6px;
   background:linear-gradient(90deg,var(--gold),var(--red));
 }
-.meta{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.nm{font-family:'Fredoka';font-weight:600;font-size:25px;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.4)}
+.meta{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.nm{font-family:'Fredoka';font-weight:600;font-size:21px;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.4)}
 .tbl{
-  font-family:'Fredoka';font-weight:600;font-size:18px;color:#fff;
+  font-family:'Fredoka';font-weight:600;font-size:15px;color:#fff;
   background:linear-gradient(135deg,var(--red),var(--red-deep));
   padding:4px 14px;border-radius:999px;white-space:nowrap;
   box-shadow:0 3px 8px rgba(255,59,48,.4);
 }
-.msg{font-size:22px;line-height:1.4;color:#fdfbff;text-shadow:0 1px 3px rgba(0,0,0,.4);word-break:break-word}
+.msg{font-size:18px;line-height:1.4;color:#fdfbff;text-shadow:0 1px 3px rgba(0,0,0,.4);word-break:break-word}
 
 /* reduced motion */
 @media (prefers-reduced-motion:reduce){
@@ -437,7 +437,7 @@ body{
 
 /* ============ PINNED BUBBLES (max 3, stay floating) ============ */
 .pin-lane{position:absolute;inset:0;z-index:19;pointer-events:none}
-.pin-bubble{position:absolute;max-width:480px;min-width:260px}
+.pin-bubble{position:absolute;max-width:400px;min-width:220px}
 .pin-bubble.slot-0{left:4%;top:30vh}
 .pin-bubble.slot-1{left:36%;top:22vh}
 .pin-bubble.slot-2{left:62%;top:33vh}
